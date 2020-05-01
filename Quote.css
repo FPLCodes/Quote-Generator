@@ -9,14 +9,13 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f2bc94;
+  transition: 0.5s;
 }
 
 #quote-box {
   margin: auto;
   max-width: 60%;
   text-align: center;
-  border: gray 2px solid;
   padding: 20px 30px 35px 30px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
@@ -31,6 +30,7 @@ body {
 #text {
   font-size: 25px;
   font-weight: 600;
+  -webkit-text-stroke: 0.1px black;
 }
 
 #author {
@@ -44,10 +44,8 @@ body {
   font-weight: bold;
   font-size: 15px;
   padding: 7px;
-  background-color: #f2bc94;
-  border-radius: 5px;
   border: none;
-  margin-right: 30%;
+  margin-right: 73%;
   cursor: pointer;
   transition: 0.3s;
   outline: none;
@@ -61,21 +59,60 @@ body {
 }
 
 #tweet-quote {
-  font-family: "Roboto Slab";
-  font-weight: bold;
-  font-size: 15px;
-  padding: 7px;
-  background-color: #f2bc94;
+  margin: -25px 0 -5px 80%;
   border-radius: 5px;
-  border: none;
   cursor: pointer;
   transition: 0.3s;
-  outline: none;
-  color: rgb(61, 61, 61);
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
 }
 
 #tweet-quote:hover {
-  transform: scale(1.01);
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+#bg-load {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: 0.5s;
+  background-color: rgb(250, 237, 219);
+}
+
+#circle {
+  margin: 10px;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  animation-name: loading;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.circle1 {
+  animation-delay: 0s;
+  background-color: hotpink;
+}
+
+.circle2 {
+  animation-delay: 0.2s;
+  background-color: lightskyblue;
+}
+
+.circle3 {
+  animation-delay: 0.4s;
+  background-color: lightgreen;
+}
+
+@keyframes loading {
+  0% {
+    margin-bottom: 10px;
+  }
+  50% {
+    margin-bottom: 50px;
+  }
+  100% {
+    margin-bottom: 10px;
+  }
 }

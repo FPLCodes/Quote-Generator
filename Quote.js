@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { TwitterShareButton } from "react-twitter-embed";
+import { randomColor } from "randomcolor";
 import "./Quote.css";
 
 function Quote() {
   const [quotes, setQuotes] = useState([]);
   const [currQuote, setCurrQuote] = useState(null);
   const [currAuthor, setCurrAuthor] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [bg, setBg] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -18,7 +21,10 @@ function Quote() {
         setQuotes(response.quotes.map((item) => item));
         setCurrQuote(response.quotes[random].quote);
         setCurrAuthor(response.quotes[random].author);
-        setIsLoading(false);
+        setInterval(() => {
+          setIsLoading(false);
+        }, 2000);
+        setBg(randomColor());
       });
   }, []);
 
@@ -26,23 +32,36 @@ function Quote() {
     const random = Math.floor(Math.random() * 102);
     setCurrQuote(quotes[random].quote);
     setCurrAuthor(quotes[random].author);
+
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    setBg(color);
   }
 
   return (
     <div>
       {isLoading ? (
-        <h1>Loading</h1>
+        <div id="bg-load">
+          <div id="circle" className="circle1"></div>
+          <div id="circle" className="circle2"></div>
+          <div id="circle" className="circle3"></div>
+        </div>
       ) : (
-        <div id="bg">
-          <div id="quote-box">
+        <div id="bg" style={{ backgroundColor: bg }}>
+          <div id="quote-box" style={{ color: bg }}>
             <h2 id="text">"{currQuote}"</h2>
             <h3 id="author">- {currAuthor}</h3>
             <button id="new-quote" onClick={changeQuote}>
               New quote
             </button>
-            <a href="twitter.com/intent/tweet">
-              <button id="tweet-quote">Tweet quote</button>
-            </a>
+            <div id="tweet-quote">
+              <TwitterShareButton
+                options={{ text: `"${currQuote}" -${currAuthor}` }}
+              />
+            </div>
           </div>
         </div>
       )}
